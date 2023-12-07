@@ -34,6 +34,35 @@ class UsersController {
                 res.status(300).json("ERR UsersController Login");
             }
         };
+        this.showProfileUser = async (req, res) => {
+            try {
+                let id = req.params.id;
+                let userProfile = await usersServise_1.default.showProfileUser(id);
+                res.status(201).json(userProfile);
+            }
+            catch (err) {
+                console.log("UsersController ShowProfile ERR: ", err);
+                res.status(300).json("ERR UsersController ShowProfile");
+            }
+        };
+        this.editProfileUser = async (req, res) => {
+            try {
+                let id = req.params.id;
+                let user = req.body;
+                let checkUserExits = await usersServise_1.default.checkUserExits(user);
+                if (checkUserExits) {
+                    res.status(300).json("Email hoac SDT da duoc dung");
+                }
+                else {
+                    await usersServise_1.default.editProfileUser(id, user);
+                    res.status(201).json('Sua thong tin thanh cong');
+                }
+            }
+            catch (err) {
+                console.log("UsersController ShowProfile ERR: ", err);
+                res.status(300).json("ERR UsersController ShowProfile");
+            }
+        };
     }
 }
 exports.default = new UsersController();

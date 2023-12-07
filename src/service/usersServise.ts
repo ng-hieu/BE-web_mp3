@@ -87,6 +87,37 @@ class UsersService {
             console.log("UsersService Login ERR: ", err);
         }
     }
+
+    showProfileUser = async (id) => {
+        try {
+            return await this.userRepository.findOne(
+                { where: { userId: id } }
+            )
+        }
+        catch (err) {
+            console.log("UsersService ShowProfileUser ERR: ", err);
+
+        }
+    }
+
+    editProfileUser = async (id, user) => {
+        try {
+            return await this.userRepository
+                .createQueryBuilder()
+                .update(Users)
+                .set({
+                    userEmail: user.userEmail,
+                    userName: user.userNam,
+                    userPhone: user.userPhone
+                })
+                .where({ userId: id })
+                .execute()
+        }
+        catch (err) {
+            console.log("UsersService editProfile ERR: ", err);
+        }
+    }
+
 }
 
 export default new UsersService();

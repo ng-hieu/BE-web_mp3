@@ -90,6 +90,31 @@ class UsersService {
                 console.log("UsersService Login ERR: ", err);
             }
         };
+        this.showProfileUser = async (id) => {
+            try {
+                return await this.userRepository.findOne({ where: { userId: id } });
+            }
+            catch (err) {
+                console.log("UsersService ShowProfileUser ERR: ", err);
+            }
+        };
+        this.editProfileUser = async (id, user) => {
+            try {
+                return await this.userRepository
+                    .createQueryBuilder()
+                    .update(Users_1.Users)
+                    .set({
+                    userEmail: user.userEmail,
+                    userName: user.userNam,
+                    userPhone: user.userPhone
+                })
+                    .where({ userId: id })
+                    .execute();
+            }
+            catch (err) {
+                console.log("UsersService editProfile ERR: ", err);
+            }
+        };
     }
 }
 exports.default = new UsersService();
