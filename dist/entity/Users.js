@@ -37,7 +37,7 @@ __decorate([
 ], Users.prototype, "userPassword", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Roles_1.Roles, (roleId) => roleId.users),
-    __metadata("design:type", Number)
+    __metadata("design:type", Roles_1.Roles)
 ], Users.prototype, "roleId", void 0);
 exports.Users = Users = __decorate([
     (0, typeorm_1.Entity)()

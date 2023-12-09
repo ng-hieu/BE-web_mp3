@@ -23,46 +23,26 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.auth = exports.SIGNATURE = void 0;
+exports.checkRoles = void 0;
+const auth_1 = require("./auth");
 const jwt = __importStar(require("jsonwebtoken"));
-exports.SIGNATURE = '123456';
-const auth = (req, res, next) => {
+const checkRoles = (req, res, next) => {
     try {
         let authorization = req.headers.authorization;
-        if (authorization) {
-            let accessToken = req.headers.authorization.split(" ")[1];
-            if (accessToken) {
-                jwt.verify(accessToken, exports.SIGNATURE, (err, payload) => {
-                    if (err) {
-                        res.status(401).json({
-                            error: err.message,
-                            message: "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại",
-                            success: false
-                        });
-                    }
-                    else {
-                        req.decode = payload;
-                        return next();
-                    }
-                });
-            }
-            else {
-                res.status(401).json({
-                    message: "No token provided",
-                    success: false
-                });
-            }
+        let accessToken = req.headers.authorization.split(" ")[1];
+        let roleId = jwt.verify(accessToken, auth_1.SIGNATURE).roleId;
+        if (roleId == 1) {
+            next();
         }
         else {
             res.status(401).json({
-                message: "No token provided",
-                success: false
+                message: "Ban khong phai Admin"
             });
         }
     }
     catch (err) {
-        console.log('ERR Auth', err);
+        console.log('ERR CheckRoles', err);
     }
 };
-exports.auth = auth;
-//# sourceMappingURL=auth.js.map
+exports.checkRoles = checkRoles;
+//# sourceMappingURL=checkRole.js.map

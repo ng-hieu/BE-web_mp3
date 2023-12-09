@@ -28,14 +28,12 @@ class UsersService {
         this.register = async (user) => {
             try {
                 let hashedPassword = bcrypt_1.default.hashSync(user.userPassword, 10);
-                let newUser = new Users_1.Users();
-                newUser.userEmail = user.userEmail;
-                newUser.userName = user.userName;
-                newUser.userPhone = user.userPhone;
-                newUser.userPassword = hashedPassword;
-                newUser.roleId = 2;
-                await this.userRepository.save(newUser);
-                return newUser;
+                user.userEmail = user.userEmail;
+                user.userName = user.userName;
+                user.userPhone = user.userPhone;
+                user.userPassword = hashedPassword;
+                user.roleId = 2;
+                return await this.userRepository.save(user);
             }
             catch (err) {
                 console.log("UsersService Register ERR: ", err);
@@ -44,16 +42,19 @@ class UsersService {
         this.login = async (user) => {
             try {
                 let checkUser = await this.userRepository.findOne({
+                    relations: {
+                        roles: true
+                    },
                     where: {
                         userEmail: user.userEmail
                     }
                 });
                 let userFind = checkUser;
-                console.log("checkUser cua Login: ", checkUser);
                 if (userFind) {
                     let pass = await bcrypt_1.default.compare(user.userPassword, userFind.userPassword);
                     if (pass) {
                         let payload;
+                        console.log('userFind: ', userFind);
                         if (userFind.roleId === 1) {
                             payload = {
                                 userId: userFind.userId,

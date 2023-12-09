@@ -1,4 +1,7 @@
+import { Users } from "../entity/Users";
 declare class AdminService {
     private userRepository;
+    showListOfUser: () => Promise<Users[]>;
 }
-export default AdminService;
+declare const _default: AdminService;
+export default _default;

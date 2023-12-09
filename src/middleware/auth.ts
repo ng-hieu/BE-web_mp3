@@ -3,10 +3,9 @@ import * as jwt from 'jsonwebtoken'
 
 export const SIGNATURE = '123456'
 export const auth = (req, res, next) => {
-    let authorization = req.headers.authorization
-    // console.log('authorization: ', authorization);
-
     try {
+        let authorization = req.headers.authorization
+        // console.log('authorization: ', authorization);
         if (authorization) {
             let accessToken = req.headers.authorization.split(" ")[1];
             // console.log('accessToken: ', accessToken);
@@ -39,7 +38,7 @@ export const auth = (req, res, next) => {
         }
     }
     catch (err) {
-        console.log('ERR auth', err);
+        console.log('ERR Auth', err);
 
     }
 }
