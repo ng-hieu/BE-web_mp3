@@ -25,20 +25,11 @@ class UsersService {
     register = async (user) => {
         try {
             let hashedPassword = bcrypt.hashSync(user.userPassword, 10);
-            // let newUser = new Users()
-            // newUser.userEmail = user.userEmail;
-            // newUser.userName = user.userName;
-            // newUser.userPhone = user.userPhone;
-            // newUser.userPassword = hashedPassword;
-            // newUser.roleId = 2
-            // await this.userRepository.save(newUser)
-            // return newUser
-
             user.userEmail = user.userEmail;
             user.userName = user.userName;
             user.userPhone = user.userPhone;
             user.userPassword = hashedPassword;
-            user.roleId = 2
+            user.roles = 2
             return await this.userRepository.save(user)
         } catch (err) {
             console.log("UsersService Register ERR: ", err);
@@ -56,7 +47,7 @@ class UsersService {
                 }
             })
             let userFind = checkUser;
-            // console.log("checkUser cua Login: ", checkUser);
+            console.log("checkUser cua Login: ", checkUser);
 
             if (userFind) {
                 let pass = await bcrypt.compare(user.userPassword, userFind.userPassword)
@@ -68,7 +59,7 @@ class UsersService {
                             userEmail: userFind.userEmail,
                             userName: userFind.userName,
                             userPhone: userFind.userPhone,
-                            // roleId: userFind.roles.roleId
+                            roleId: userFind.roles.roleId
                         }
                    
                     let token = jwt.sign(payload, SIGNATURE, {

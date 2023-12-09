@@ -32,7 +32,7 @@ class UsersService {
                 user.userName = user.userName;
                 user.userPhone = user.userPhone;
                 user.userPassword = hashedPassword;
-                user.roleId = 2;
+                user.roles = 2;
                 return await this.userRepository.save(user);
             }
             catch (err) {
@@ -50,6 +50,7 @@ class UsersService {
                     }
                 });
                 let userFind = checkUser;
+                console.log("checkUser cua Login: ", checkUser);
                 if (userFind) {
                     let pass = await bcrypt_1.default.compare(user.userPassword, userFind.userPassword);
                     if (pass) {
@@ -60,6 +61,7 @@ class UsersService {
                             userEmail: userFind.userEmail,
                             userName: userFind.userName,
                             userPhone: userFind.userPhone,
+                            roleId: userFind.roles.roleId
                         };
                         let token = jsonwebtoken_1.default.sign(payload, auth_1.SIGNATURE, {
                             expiresIn: 3600 * 10 * 100

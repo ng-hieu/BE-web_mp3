@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", String)
 ], Roles.prototype, "roleName", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Users_1.Users, (user) => user.roleId),
+    (0, typeorm_1.OneToMany)(() => Users_1.Users, (user) => user.roles),
     __metadata("design:type", Array)
 ], Roles.prototype, "users", void 0);
 exports.Roles = Roles = __decorate([

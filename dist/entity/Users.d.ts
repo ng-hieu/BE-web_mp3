@@ -5,5 +5,5 @@ export declare class Users {
     userName: string;
     userPhone: string;
     userPassword: string;
-    roleId: Roles;
+    roles: Roles;
 }

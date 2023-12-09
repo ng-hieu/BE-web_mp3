@@ -8,7 +8,9 @@ class AdminService {
         this.showListOfUser = async () => {
             try {
                 let userList = await this.userRepository.find({
-                    where: { roleId: 2 }
+                    relations: {
+                        roles: true
+                    }
                 });
                 return userList;
             }

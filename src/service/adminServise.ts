@@ -6,11 +6,11 @@ class AdminService {
 
     showListOfUser = async() =>{
         try{
-            let userList = await this.userRepository.find(
-                {
-                    where: {roleId: 2}
+            let userList = await this.userRepository.find({
+                relations: {
+                    roles: true
                 }
-            )
+            })
             return userList
         }
         catch(err){
