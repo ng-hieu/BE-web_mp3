@@ -7,7 +7,6 @@ class AdminController {
         try {
            let listUser = await AdminService.showListOfUser()
            console.log("listUser", listUser);
-           
            res.status(200).json(listUser)
         }
         catch (err) {
