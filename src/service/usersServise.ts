@@ -63,24 +63,14 @@ class UsersService {
                 if (pass) {
                     let payload;
                     console.log('userFind: ', userFind);
-                    
-                    if (userFind.roleId === 1) {
                         payload = {
                             userId: userFind.userId,
                             userEmail: userFind.userEmail,
                             userName: userFind.userName,
                             userPhone: userFind.userPhone,
-                            roleId: 1
+                            // roleId: userFind.roles.roleId
                         }
-                    } else {
-                        payload = {
-                            userId: userFind.userId,
-                            userEmail: userFind.userEmail,
-                            userName: userFind.userName,
-                            userPhone: userFind.userPhone,
-                            roleId: 2
-                        }
-                    }
+                   
                     let token = jwt.sign(payload, SIGNATURE, {
                         expiresIn: 3600 * 10 * 100
                     })

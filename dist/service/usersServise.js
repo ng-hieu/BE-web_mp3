@@ -55,24 +55,12 @@ class UsersService {
                     if (pass) {
                         let payload;
                         console.log('userFind: ', userFind);
-                        if (userFind.roleId === 1) {
-                            payload = {
-                                userId: userFind.userId,
-                                userEmail: userFind.userEmail,
-                                userName: userFind.userName,
-                                userPhone: userFind.userPhone,
-                                roleId: 1
-                            };
-                        }
-                        else {
-                            payload = {
-                                userId: userFind.userId,
-                                userEmail: userFind.userEmail,
-                                userName: userFind.userName,
-                                userPhone: userFind.userPhone,
-                                roleId: 2
-                            };
-                        }
+                        payload = {
+                            userId: userFind.userId,
+                            userEmail: userFind.userEmail,
+                            userName: userFind.userName,
+                            userPhone: userFind.userPhone,
+                        };
                         let token = jsonwebtoken_1.default.sign(payload, auth_1.SIGNATURE, {
                             expiresIn: 3600 * 10 * 100
                         });
