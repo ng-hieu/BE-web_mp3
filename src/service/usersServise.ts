@@ -47,13 +47,13 @@ class UsersService {
                 }
             })
             let userFind = checkUser;
-            console.log("checkUser cua Login: ", checkUser);
+            // console.log("checkUser cua Login: ", checkUser);
 
             if (userFind) {
                 let pass = await bcrypt.compare(user.userPassword, userFind.userPassword)
                 if (pass) {
                     let payload;
-                    console.log('userFind: ', userFind);
+                    // console.log('userFind: ', userFind);
                         payload = {
                             userId: userFind.userId,
                             userEmail: userFind.userEmail,

@@ -9,7 +9,6 @@ class AdminController {
         this.showUsersList = async (req, res) => {
             try {
                 let listUser = await adminServise_1.default.showListOfUser();
-                console.log("listUser", listUser);
                 res.status(200).json(listUser);
             }
             catch (err) {
